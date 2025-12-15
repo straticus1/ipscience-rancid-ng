@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Wrapper script for host2ddi CLI
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+# Use venv Python if available, otherwise system Python
+if [ -f "$PROJECT_ROOT/.venv/bin/python" ]; then
+    PYTHON="$PROJECT_ROOT/.venv/bin/python"
+else
+    PYTHON="python3"
+fi
+
+PYTHONPATH="$PROJECT_ROOT/src:$PYTHONPATH" exec "$PYTHON" -m rancid_ng.cli.host2ddi "$@"
